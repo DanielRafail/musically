@@ -1,0 +1,36 @@
+.h1{
+    font-size: 150px;
+}
+
+.h3{
+    font-size: 50px;
+}
+
+.h5{
+    font-size: 30px;
+}
+
+a{
+    font-size:30px;
+}
+
+
+.h1, .h3, .h5{
+    width: 100%;
+    color: #dc274a;
+    display:block;
+}
+
+.error-container{
+    height:100%;
+    width:100%;
+    text-align: center;
+}
+
+
+.error{
+    padding-top:12%;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}

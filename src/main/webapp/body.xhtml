@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:body>
+        <ui:composition>
+            <ui:insert name = "recommended" >
+                <ui:include src = "recommended.xhtml" />
+            </ui:insert> 
+            <ui:insert name = "ad" >
+                <ui:include src = "ads.xhtml" />
+            </ui:insert> 
+            <ui:insert name = "latest" >
+                <ui:include src = "latest.xhtml" />
+            </ui:insert> 
+            <ui:insert name = "survey" >
+                <ui:include src = "survey.xhtml" />
+            </ui:insert> 
+            <ui:insert name = "news" >
+                <ui:include src = "news.xhtml" />
+            </ui:insert> 
+        </ui:composition>
+    </h:body>
+</html>

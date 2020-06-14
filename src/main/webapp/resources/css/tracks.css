@@ -1,0 +1,175 @@
+
+#image-container{
+    float:left;
+    width:fit-content;
+    margin-right:25px;
+    display:inline-block;
+}
+
+
+#item-info-container{
+    margin:40px 0px;
+    width: 100%;
+}
+
+
+#item-info{
+    display:table;
+    vertical-align: top;
+}
+
+#item-image{
+    display:inline-block;
+    max-height:400px;
+}
+
+
+.item-image-recommendation, #item-recommendations{
+    float:left;
+    height:120px;
+    min-height:120px;
+    max-height:120px;
+}
+
+#item-recommendations{
+    width: 100%;
+    display: block;
+    margin-top: 100px;
+}
+
+.trackInformation{
+    color:white;
+}
+
+#review{
+    color:white;
+    font-size:22px;
+    margin-top: 200px;
+    width:100%;
+    text-align: center;
+    background-color:#282730;
+}
+
+#review-stars{
+    height:100px;
+    padding-top: 20px;
+}
+
+
+.review-text{
+    background-color: #1a191e;
+    width: 80%;
+    width:-webkit-fill-available;
+    width: -moz-available;
+    height:200px;
+    margin: 0px 30px 30px 30px;
+    resize: none;
+}
+
+.submit-review{
+    width: 40%;
+    margin-bottom: 25px;
+}
+
+#review-title{
+    display:block;
+}
+
+@media only screen 
+and (max-width: 767px){ 
+
+    #image-container{
+        max-width: 100%;
+        width:auto;
+    }
+}
+
+@media only screen 
+and (max-width: 640px){ 
+
+    #item-info{
+        margin-top:130px;
+    }
+}
+
+#list{
+    width: 100%;
+}
+
+.list-group-item{
+    background-color:#282730;
+    border:1px solid black;
+}
+
+.album-tracks-contained{
+    decoration: none;
+    color: inherit;
+}
+
+.album-tracks-contained:hover{
+    decoration:none;
+    color: inherit;
+}
+
+.purchase{
+    margin-top:0px;
+}
+
+.purchase-container{
+    margin:0px auto;
+    width: 100%;
+    text-align: center;
+}
+.submit-review{
+    width: 40%;
+    margin-bottom: 25px;
+}
+
+#review-title{
+    display:block;
+}
+
+.reviews-strangers{
+    resize: none;
+    background-color: #282730;
+    border: 1px black solid;
+    color: white;
+    outline:none;
+}
+
+#all-reviews{
+    width:100%;
+}
+
+.single-review{
+    float:left;
+    margin: 20px;
+    width:100%;
+}
+
+.review-title{
+    font-size:18px;
+    color:white;
+}
+
+.read-only-rating{
+    text-align: center;
+}
+
+.image{
+    position:relative;
+}
+
+.change-image{
+    position: absolute;
+    right:0px;
+    top:0px;
+    opacity :0.4;
+    width: inherit;
+}
+
+.change-image:focus, .change-image:active, .change-image:hover{
+    opacity: 1;
+    -webkit-transition: opacity 1s;
+    transition: opacity 1s;
+}

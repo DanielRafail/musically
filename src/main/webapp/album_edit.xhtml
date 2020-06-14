@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>#{msg.musicallyAlbumEdit} #{albumBean.albumToDisplay.title}</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/table.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+            <h:outputStylesheet name="css/inventory.css"/>
+        </h:head>
+        <h:body>
+            <f:metadata>
+                <f:viewAction action="#{albumBean.setUpAlbum()}" />
+            </f:metadata>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+            <div class="container inventory-container">
+                <div id="add-container">
+                    <h:form class="navbar-form">
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.titleInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="albumTitle" value="#{albumBean.albumToDisplay.title}" class="form-control add-input"/>
+                                <h:message for="albumTitle" styleClass="errorMessage" showDetail="true" />
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.genre}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="albumGenre" 
+                                             value="#{albumBean.genreName}" 
+                                             class="form-control add-input"
+                                             required="true" requiredMessage="Genre is required"
+                                             validator="#{albumBean.validateGenreName}">
+                                    <f:ajax event="blur" render="genreMessage"/>
+                                </h:inputText>
+                                <h:message for="albumGenre" styleClass="errorMessage" showDetail="true" />
+                            </div>
+                            <div>
+                                <h:message infoClass="info" errorClass="error" id="genreMessage" for="albumGenre"/>
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.releaseDateInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="albumReleaseDate" value="#{albumBean.albumToDisplay.releaseDate}" class="form-control add-input">
+                                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                                </h:inputText>
+                                <h:message for="albumReleaseDate" styleClass="errorMessage" showDetail="true" />
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.recordLabelInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="albumRecord" value="#{albumBean.albumToDisplay.recordingLabel}" class="form-control add-input"/>
+                                <h:message for="albumRecord" styleClass="errorMessage" showDetail="true" />
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.numTracksInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="albumNumTracks" value="#{albumBean.albumToDisplay.numberOfTracks}" class="form-control add-input">
+                                    <f:convertNumber integerOnly="true" />
+                                </h:inputText>
+                                <h:message for="albumNumTracks" styleClass="errorMessage" showDetail="true" />
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.costPriceInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="albumCostPrice" value="#{albumBean.albumToDisplay.costPrice}" class="form-control add-input">
+                                    <f:convertNumber type="currency" currencySymbol="$" />
+                                </h:inputText>
+                                <h:message for="albumCostPrice" styleClass="errorMessage" showDetail="true" />
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.listPriceInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="albumListPrice" value="#{albumBean.albumToDisplay.listPrice}" class="form-control add-input">
+                                    <f:convertNumber type="currency" currencySymbol="$" />
+                                </h:inputText>
+                                <h:message for="albumListPrice" styleClass="errorMessage" showDetail="true" />
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.filePathInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="albumFilePath" value="#{albumBean.albumToDisplay.coverFilepath}" class="form-control add-input"/>
+                                <h:message for="albumFilePath" styleClass="errorMessage" showDetail="true" />
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.remove}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:selectBooleanCheckbox value="#{albumBean.albumToDisplay.removed}"/>
+                            </div>
+                        </div>
+                        <h:commandButton class="add-button button btn btn-default" value="#{msg.update}" action="#{albumBean.updateAlbum}"/>
+                    </h:form>
+                </div>
+            </div>
+        </h:body>
+    </f:view>
+</html>

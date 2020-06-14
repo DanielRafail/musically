@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>#{msg.musicallyClients}</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/table.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+        </h:head>
+        <h:body>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+
+            <div class="container client-container">
+                <h:form class="navbar-form">
+                    <h:outputLabel value="#{msg.find}" class="client-find-label"/>
+                    <div class="input-group">
+                        <h:inputText id="client-email" 
+                                     value="#{userBean.user.email}" 
+                                     class="form-control" 
+                                     a:placeholder="#{msg.emailAddress}"
+                                     validator="#{userBean.validateEmail}">
+                            <f:ajax event="blur" render="searchEmailErrorMessage"/>
+                        </h:inputText>  
+                        <div class="input-group-btn">
+                            <h:commandLink class="btn btn-default search-input" action="#{userBean.getUserFromSearch}" type="submit"><i class="glyphicon glyphicon-search"></i></h:commandLink>
+                        </div>
+                    </div>
+                    <div>
+                        <h:message infoClass="info" id= "searchEmailErrorMessage" errorClass="error" for="client-email"/>
+                    </div>
+                </h:form>
+                <h:dataTable value = "" var = "clients-info" class="table-responsive clients-table-results" id="clients-table-results" columnClasses="client-name, client-total, client-edit">
+                    <h:column>    				
+                        <f:facet name = "header">#{msg.emailAddress}</f:facet> 
+                        <h:outputText value="#{userBean.user.email}"/>
+                        <!--{employee.name}-->
+                    </h:column>
+                    <h:column>
+                        <f:facet name = "header">#{msg.clientname}</f:facet>
+                        <h:outputText value="#{userBean.user.firstName} #{userBean.user.lastName}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name = "header">#{msg.totalspent}</f:facet>
+                        <h:outputText value="$#{userBean.totalPurchases}"/>
+                        <!--{employee.department}-->
+                    </h:column>
+                    <h:column>
+                        <f:facet name = "header">#{msg.edit}</f:facet>
+                        <h:link outcome="clients_edit" rendered="#{userBean.isValidSearch}"><span class="glyphicon glyphicon glyphicon-edit"></span>
+                            <f:param name="userID" value="#{userBean.userID}"/>
+                        </h:link>
+                    </h:column>
+                </h:dataTable>
+            </div>
+
+            <!-- Use footer composition -->
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+        </h:body>
+    </f:view>
+</html>

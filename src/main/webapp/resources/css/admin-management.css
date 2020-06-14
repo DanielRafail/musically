@@ -1,0 +1,69 @@
+.add-group{
+    width:100%;
+}
+
+.add-output{
+    text-align:left;
+}
+
+.add-group-input-group {
+    margin:0px;
+}
+
+form{
+    width:100%;
+}
+
+@media (max-width: 768px){
+    .add-output {
+        margin:0px;
+    }
+}
+
+.admin-submit{
+    margin:15px;
+}
+
+.download-ad{
+    padding:5px;
+}
+
+/* https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/ */
+.file-choser{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.file-choser + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: #df474b;
+    display: inline-block;
+    padding: 5px;
+}
+
+.file-choser:focus + label,
+.file-choser + label:hover {
+    background-color: #c64043;
+}
+
+.file-choser + label {
+	cursor: pointer; /* "hand" cursor */
+}
+
+.file-choser:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.file-choser:focus + label,
+.file-choser.has-focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+

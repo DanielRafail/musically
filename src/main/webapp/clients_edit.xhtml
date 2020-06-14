@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>#{msg.musicallyClientsEdit}</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/clients.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+        </h:head>
+        <h:body>
+            <f:metadata>
+                <f:viewParam name="userID" value="#{registrationBean.userID}"/>
+                <f:viewAction action="#{registrationBean.setupForEditInfo}"/>
+            </f:metadata>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+
+            <div class="container">
+                <h:form class="form-horizontal client-edit-form">
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red">#{msg.firstEdit}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input" id="client-first" value ="#{registrationBean.user.firstName}"
+                                         required="true" requiredMessage="First Name is required"> 
+                                <f:ajax event="blur"  render="firstNameeErrorMessage" />
+                            </h:inputText>
+                        </div>
+                        <div>
+                            <h:message infoClass="info" id= "firstNameeErrorMessage" errorClass="error" for="client-first"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red">#{msg.lastEdit}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input" id="client-last" value ="#{registrationBean.user.lastName}"
+                                         required="true" requiredMessage="Last Name is required">
+                                <f:ajax event="blur"  render="lastNameeErrorMessage" />
+                            </h:inputText>
+                        </div>
+                        <div>
+                            <h:message infoClass="info"  id = "lastNameeErrorMessage" errorClass="error" for="client-last"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red">#{msg.emailEdit}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input" id="client-email" required="true" 
+                                         value="#{registrationBean.user.email}"
+                                         requiredMessage="Email is required" 
+                                         validator="#{registrationBean.validateEmail}">
+                                <f:ajax event="blur"  render="emailErrorMessage" />
+                            </h:inputText>
+                        </div>
+                        <div>
+                            <h:message infoClass="info" id= "emailErrorMessage" errorClass="error" for="client-email"/>  
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red">#{msg.companyName}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input" value ="#{registrationBean.user.companyName}"/> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red" >#{msg.addressOneEdit}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input"  id="client-address" value ="#{registrationBean.user.address1}"
+                                         required="true" requiredMessage="Address #1 is required">
+                                <f:ajax event="blur"  render="AddressErrorMessage" /> 
+                            </h:inputText>
+                        </div>
+                        <div>
+                            <h:message infoClass="info" id="AddressErrorMessage" errorClass="error" for="client-address"/> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red">#{msg.addressTwo}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input" value ="#{registrationBean.user.address2}"/> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red">#{msg.cityEdit}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input"  id="client-city" value ="#{registrationBean.user.city}"
+                                         required="true" requiredMessage="City is required">
+                                <f:ajax event="blur"  render="CityErrorMessage" /> 
+                            </h:inputText>
+                        </div>
+                        <div>
+                            <h:message infoClass="info" id="CityErrorMessage" errorClass="error" for="client-city"/> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red" >#{msg.provinceEdit}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input" id="client-province" value ="#{registrationBean.user.province}"
+                                         required="true" requiredMessage="Province is required"> 
+                                <f:ajax event="blur"  render="ProvinceErrorMessage" /> 
+                            </h:inputText>
+                        </div>
+                        <div>
+                            <h:message infoClass="info" id="ProvinceErrorMessage" errorClass="error" for="client-province"/> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red" >#{msg.countryEdit}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input" id="client-country" value ="#{registrationBean.user.country}"
+                                         required="true" requiredMessage="Country is required">
+                                <f:ajax event="blur"  render="CountryErrorMessage" /> 
+                            </h:inputText>
+                        </div>
+                        <div>
+                            <h:message infoClass="info"  id="CountryErrorMessage" errorClass="error" for="client-country"/> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red" >#{msg.postalEdit}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input" id="client-postal" value ="#{registrationBean.user.postalCode}"
+                                         required="true" requiredMessage="Postal Code is required" validatorMessage="Postal Code is not valid" >
+                                <f:validateRegex pattern="[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]" />
+                                <f:ajax event="blur"  render="PostalCodeErrorMessage" /> 
+                            </h:inputText>
+                        </div>
+                        <div>
+                            <h:message infoClass="info" id= "PostalCodeErrorMessage" errorClass="error" for="client-postal"/> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red" >#{msg.homePhone}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input"  id="client-home-number" value ="#{registrationBean.user.homePhone}"
+                                         required="true" requiredMessage="Phone Number is required">
+                                <f:ajax event="blur"  render="phoneErrorMessage" /> 
+                            </h:inputText>
+                        </div>
+                        <div>
+                            <h:message infoClass="info" id="phoneErrorMessage" errorClass="error" for="client-home-number"/> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red">#{msg.cellEdit}</h:outputLabel>
+                        <div>
+                            <h:inputText class="client-input" id="client-cell-number" value ="#{registrationBean.user.cellPhone}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="control-label red">#{msg.manager}</h:outputLabel>
+                        <div class="client-input">
+                            <h:selectBooleanCheckbox value="#{registrationBean.isManager}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">        
+                        <h:commandButton  id="submit-button" class="client-edit-button btn btn-default " value="#{msg.save}" action="#{registrationBean.editClient}">
+                            <f:ajax render="@form" execute="@form"/>
+                        </h:commandButton>
+                    </div>
+                </h:form>
+            </div>
+
+            <!-- Use footer composition -->
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+        </h:body>
+    </f:view>
+</html>

@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>Musically - Cart</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/creditcard.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+        </h:head>
+        <h:body>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+            <div class="container">
+                <!-- https://bootsnipp.com/snippets/xNGMB -->
+                <div id="creditCardOption">
+                    <div class="row">
+                        <div class="paymentCont">
+                            <div class="headingWrap">
+                                <h:outputLabel value="#{msg.selectpayement}" class = "h1 method"/>
+                            </div>
+                            <div class="paymentWrap">
+                                <div class="btn-group paymentBtnGroup btn-group-justified" data-toggle="buttons">
+                                    <h:outputLabel  class = "btn paymentMethod">
+                                        <div class="method visa"></div>
+                                        <input type="radio" name="options"/> 
+                                    </h:outputLabel>
+                                    <h:outputLabel  class = "btn paymentMethod">
+                                        <div class="method master-card"></div>
+                                        <input type="radio" name="options"/> 
+                                    </h:outputLabel>
+                                </div>        
+                            </div>
+                            <h:outputLabel class='cardError hide' value='#{msg.cardselect}'/>
+                            <h:form>
+                                <div class="footerNavWrap clearfix">
+                                    <h:commandLink type='submit' action="index" class="btn button creditcard-button pull-left btn-fyi return">
+                                        <span class="glyphicon glyphicon-chevron-left">    
+                                        </span>
+                                        #{msg.continueshopping}
+                                    </h:commandLink>
+                                    <h:commandLink type='button' class="btn button creditcard-button pull-right btn-fyi continue">
+                                        #{msg.continue}
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                        <f:ajax execute="@form" render="@none" />
+                                    </h:commandLink>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+                <div id="creditcardInformation" class="hide">
+                    <div class='row'>
+                        <div>
+                            <h:form class="require-validation" id="payment-form">
+                                <div class='form-row'>
+                                    <div class='col-xs-12 form-group required'>
+                                        <h:outputLabel class='control-label' value="#{msg.name}"/>
+                                        <h:inputText id="cc-name-input" class='form-control input-name' value="#{orderBean.cc_name}" required="true" requiredMessage="Name on card required">
+                                            <f:ajax event="blur"  render="ccNameErrorMessage" />
+                                        </h:inputText>
+                                        <div>
+                                            <h:message infoClass="info" id= "ccNameErrorMessage" errorClass="error" for="cc-name-input"/>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='form-row'>
+                                    <div class='col-xs-12 form-group card required'>
+                                        <h:outputLabel class='control-label' value="#{msg.number}"/>
+                                        <h:inputText id="cc-number-input" class='form-control input-number' value="#{orderBean.cc_number}" validator="#{orderBean.validateCreditCard}">
+                                            <f:ajax event="blur"  render="ccNumberErrorMessage" />
+                                        </h:inputText>
+                                        <div>
+                                            <h:message infoClass="info" id= "ccNumberErrorMessage" errorClass="error" for="cc-number-input"/>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='form-row'>
+                                    <div class='col-xs-6 form-group cvc required'>
+                                        <h:outputLabel class='control-label' value="#{msg.cvc}"/>
+                                        <h:inputText id="cc-cvc-input" class='form-control card-cvc input-cvc' value="#{orderBean.cc_cvc}" validator="#{orderBean.validateCVC}" size='3' a:placeholder='#{msg.cvcexample}'>
+                                            <f:ajax event="blur" render="ccCVCErrorMessage" />
+                                        </h:inputText>
+                                        <div>
+                                            <h:message infoClass="info" id= "ccCVCErrorMessage" errorClass="error" for="cc-cvc-input"/>  
+                                        </div>
+                                    </div>
+                                    <div class='col-xs-6 form-group expiration required'>
+                                        <h:outputLabel class='control-label' value="#{msg.expiration}"/>
+                                        <h:inputText id="cc-expiry-input" class='form-control card-expiry-month input-expiration' value="#{orderBean.cc_expiry}" validator="#{orderBean.validateExpiry}" size='7' a:placeholder='MM/YYYY'>
+                                            <f:ajax event="blur" render="ccExpiryErrorMessage" />
+                                        </h:inputText>
+                                        <div>
+                                            <h:message infoClass="info" id= "ccExpiryErrorMessage" errorClass="error" for="cc-expiry-input"/>  
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class='form-row'>
+                                    <div class='col-md-12'>
+                                        <div class='form-control total btn btn-info'>
+                                            <h:outputLabel value="#{msg.totalcredit}"/>
+                                            $<h:outputText value="#{orderBean.total.doubleValue()}" >
+                                                <f:convertNumber minFractionDigits="2" />
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='form-row'>
+                                    <div class='col-md-12 error form-group hide'>
+                                        <div class='alert-danger alert'>
+                                            #{msg.crediterror}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footerNavWrap clearfix">
+                                    <h:commandLink type='button' class="btn button creditcard-button pull-left btn-fyi back">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                        #{msg.back}
+                                        <f:ajax execute="@form" render="@none" />
+                                    </h:commandLink>
+                                    <h:commandLink type="submit" action="checkout" class="btn button creditcard-button pull-right btn-fyi checkout">
+                                        #{msg.checkout}
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                        <f:ajax render="@form" execute="cc-name-input cc-number-input cc-cvc-input cc-expiry-input"/>
+                                    </h:commandLink>
+                                </div>
+                            </h:form>
+                        </div>
+                        <div class='col-md-4'></div>
+                    </div>
+
+                </div>
+
+                <!-- https://bootsnipp.com/snippets/9V94 -->
+
+            </div>
+
+            <!-- dont forget calculations (tax and price)-->
+
+            <!-- Use footer composition -->
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="https://js.stripe.com/v2/"></script>
+            <h:outputScript name="javascript/creditcard.js"/>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+        </h:body>
+    </f:view>
+</html>
+

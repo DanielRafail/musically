@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:body>
+        <div class="container-fluid index-body" id="body-content">       
+            <h:outputLabel value="#{msg.latest}" class="h1 red"/>
+            <div id="latest" class="carousel slide" data-interval="false">
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <ui:repeat var="album" value="#{latestBean.latestAlbum}">
+                        <div class="item">
+                            <h:link outcome="#{recommendedBean.goToAlbums(album.id)}"> 
+                                <h:graphicImage class="img-responsive carousel-image" value="#{album.coverFilepath}" alt="Image of album"/>                    
+                                <span class="white carousel-text">#{album.title}</span>
+                            </h:link>             
+                        </div>
+                    </ui:repeat>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#latest" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#latest" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+        </div>
+    </h:body>
+</html>

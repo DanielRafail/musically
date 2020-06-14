@@ -1,0 +1,5 @@
+jdbc:mysql://waldo2.dawsoncollege.qc.ca:3306/CSteam_d?zeroDateTimeBehavior=CONVERT_TO_NULL&amp;useSSL=false
+CSteam_d
+mbarylem
+
+jdbc:mysql://waldo2.dawsoncollege.qc.ca:3306/CSteam_d?zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false

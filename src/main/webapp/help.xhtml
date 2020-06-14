@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>#{msg.musicallyHelp}</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/help.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+        </h:head>
+        <h:body>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+            <div class="container-fluid help-container">
+                <ul>
+                    <Details>
+                        <summary class="white h2">#{msg.helpLanguage}</summary>
+                        <div><span class="help-container-text glyphicon glyphicon-record"/>
+                            <h:outputText class="white h4 answer" value="#{msg.answerLanguage}"/>
+                        </div>
+                    </Details>
+                    <Details>
+                        <summary class="white h2">#{msg.helpSign}</summary>
+                        <div><span class="help-container-text glyphicon glyphicon-record"/>
+                            <h:outputText class="white h4 answer" value="#{msg.answerSign}"/>
+                        </div>
+                    </Details>
+                    <Details>
+                        <summary class="white h2">#{msg.helpSearch}</summary>
+                        <div><span class="help-container-text glyphicon glyphicon-record"/>
+                            <h:outputText class="white h4 answer" value="#{msg.answerSearch}"/>
+                        </div>
+                    </Details>
+                    <Details>
+                        <summary class="white h2">#{msg.helpCart}</summary>
+                        <div><span class="help-container-text glyphicon glyphicon-record"/>
+                            <h:outputText class="white h4 answer" value="#{msg.answerCart}"/>
+                        </div>
+                    </Details>
+                    <Details>
+                        <summary class="white h2">#{msg.helpFilter}</summary>
+                        <div><span class="help-container-text glyphicon glyphicon-record"/>
+                            <h:outputText class="white h4 answer" value="#{msg.answerFilter}"/>
+                        </div>
+                    </Details>
+                    <Details>
+                        <summary class="white h2">#{msg.helpNews}</summary>
+                        <div><span class="help-container-text glyphicon glyphicon-record"/>
+                            <h:outputText class="white h4 answer" value="#{msg.answerNews}"/>
+                        </div>
+                    </Details>
+                    <Details>
+                        <summary class="white h2">#{msg.helpVote}</summary>
+                        <div> 
+                            <span class="help-container-text glyphicon glyphicon-record"/>
+                            <h:outputText class="white h4 answer" value="#{msg.answerVote}"/>
+                        </div>
+                    </Details>
+
+                </ul>
+            </div>
+
+            <!-- Use footer composition -->
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+        </h:body>
+    </f:view>
+</html>

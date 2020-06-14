@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>Musically - selection</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/selection.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+        </h:head>
+        <h:body>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+            <div class="container">
+                <div class="selection-container">
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div> <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                    <div class="selection-package">
+                        <h:link outcome="selection">
+                            <h:graphicImage class="img-responsive selection-item-image" value="/resources/images/sample album cover.jpg" alt="Image of item"/> 
+                        </h:link>
+                        <h:button class="selection-item-button button btn btn-default" value="Item Name"></h:button>
+                    </div>
+                </div>
+                <div class="see-more-container">
+                    <h:commandLink value="#{msg.seemore}" class="see-more red"/>
+                </div>
+            </div>
+            <!-- Use footer composition -->
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/selection.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+        </h:body>
+    </f:view>
+</html>

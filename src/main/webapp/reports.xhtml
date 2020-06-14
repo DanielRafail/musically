@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>#{msg.musicallyReports}</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/table.css"/>
+            <h:outputStylesheet name="css/reports.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+        </h:head>
+        <h:body>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+            <div class="container-fluid">
+                <nav class="nav-container report-nav-container">
+                    <h:form>
+                        <h:outputText value="#{msg.start}" class="date-label"/>
+                        <h:inputText value="" class="date-input" a:placeholder="2014-11-07 (YYYY-MM-DD)"/>
+
+                        <h:outputText value="#{msg.end}" class="date-label"/>
+                        <h:inputText value="" class="date-input" a:placeholder="2016-08-22 (YYYY-MM-DD)"/>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-sales" value="#{msg.sales}"/>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-top" value="#{msg.top}"/>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-zero" value="#{msg.zero}"/>
+                    </h:form>
+                </nav>
+
+                <nav class="nav-container report-sales-container hide">
+                    <h:form>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-sales-total" value="#{msg.totalsales}"/>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-sales-client" value="#{msg.clientsales}"/>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-sales-artist" value="#{msg.artistsales}"/>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-sales-track" value="#{msg.tracksales}"/>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-sales-album" value="#{msg.albumsales}"/>
+                    </h:form>
+                </nav>
+                <nav class="nav-container report-top-container hide">
+                    <h:form>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-top-seller" value="#{msg.topsellers}"/>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-top-client" value="#{msg.topclients}"/>
+                    </h:form>
+                </nav>
+                <nav class="nav-container report-zero-container hide">
+                    <h:form>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-zero-track" value="#{msg.zerotrack}"/>
+                        <h:commandButton type="button" class="report-button button btn btn-default report-zero-client" value="#{msg.zeroclient}"/>
+                    </h:form>
+                </nav>
+                <div class="report-results hide">
+                    <h:dataTable value = "" var = "reports-results" class="table-responsive reports-results" id="reports-results" columnClasses="reports-row-one,reports-row-two,reports-row-three, reports-row-four">
+                        <h:column>    				
+                            <f:facet name = "header">#{msg.type}</f:facet>    
+                            <!--{employee.name}-->
+                        </h:column>
+                        <h:column>    				
+                            <f:facet name = "header">#{msg.title}</f:facet>    
+                            <!--{employee.name}-->
+                        </h:column>
+                        <h:column>
+                            <f:facet name = "header">#{msg.price}</f:facet>
+                            <!--{employee.department}-->
+                        </h:column>
+                        <h:column>
+                            <f:facet name = "header">#{msg.price}</f:facet>
+
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </div>
+
+            <!-- Use footer composition -->
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+            <h:outputScript name="javascript/reports.js"/>
+        </h:body>
+    </f:view>
+</html>

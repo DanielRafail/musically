@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<!-- 
+Source
+https://tutorialzine.com/2016/10/freebie-5-fantastic-bootstrap-footers
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:body>
+        <div class="content footer">
+        </div>
+        <footer id="myFooter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h2 class="logo"><h:link outcome="index"> Musically</h:link></h2>
+                    </div>
+                    <div class="col-sm-2">
+                        <h:outputText value="#{msg.started}" class="h5" />
+                        <ul>
+                            <li><h:link outcome="index">#{msg.home}</h:link></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2">
+                        <h:outputText value="#{msg.about}" class="h5" />
+                        <ul>
+                            <li><h:link outcome="index">#{msg.company}</h:link></li>
+                            <li><h:link outcome="index">#{msg.contact}</h:link></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2">
+                        <h:outputText value="#{msg.support}" class="h5" />
+                        <ul>
+                            <li><h:link outcome="help">#{msg.faq}</h:link></li>
+                            <li><h:link outcome="help">#{msg.help}</h:link></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="social-networks">
+                            <h:link outcome="index" class="twitter"><i class="fa fa-twitter"></i></h:link>
+                            <h:link outcome="index" class="facebook"><i class="fa fa-facebook"></i></h:link>
+                            <h:link outcome="index" class="google"><i class="fa fa-google-plus"></i></h:link>
+                        </div>
+                        <button type="button" class="btn btn-default">#{msg.contact}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2019 Musically </p>
+            </div>
+        </footer>
+    </h:body>
+</html>

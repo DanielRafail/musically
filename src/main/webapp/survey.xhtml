@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:body>
+        #{surveyManagementBean.setupSurvey()}
+        <div class="container-fluid index-body">
+            <div class="panel panel-default" id="survey">
+                <h:form>
+                    <div class="panel-heading">
+                        <h3 class="question-title">#{surveyManagementBean.survey.question}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h3 class="question">#{surveyManagementBean.survey.answer1} (#{surveyManagementBean.surveyData.answer1Count} vote(s))</h3>
+                        <h:commandButton action="#{surveyManagementBean.vote(1)}" class="vote button btn btn-default" value="#{msg.vote}"></h:commandButton>
+                    </div>
+                    <div class="panel-body">
+                        <h3 class="question">#{surveyManagementBean.survey.answer2} (#{surveyManagementBean.surveyData.answer2Count} vote(s))</h3>
+                        <h:commandButton action="#{surveyManagementBean.vote(2)}" class="vote button btn btn-default" value="#{msg.vote}"></h:commandButton>
+                    </div>
+                    <div class="panel-body">
+                        <h3 class="question">#{surveyManagementBean.survey.answer3} (#{surveyManagementBean.surveyData.answer3Count} vote(s))</h3>
+                        <h:commandButton action="#{surveyManagementBean.vote(3)}" class="vote button btn btn-default" value="#{msg.vote}"></h:commandButton>
+                    </div>
+                    <div class="panel-body">
+                        <h3 class="question">#{surveyManagementBean.survey.answer4} (#{surveyManagementBean.surveyData.answer4Count} vote(s))</h3>
+                        <h:commandButton action="#{surveyManagementBean.vote(4)}" class="vote button btn btn-default" value="#{msg.vote}"></h:commandButton>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>

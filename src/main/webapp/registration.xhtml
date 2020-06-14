@@ -1,0 +1,313 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+        <ui:composition>
+            <nav class="navbar navbar-inverse" id="registration-nav">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav"> 
+                        <li class="registration-left">
+                            <h:panelGroup rendered="#{empty request.remoteUser}">
+                                <a type="text" href="#" data-toggle="modal" data-target="#register" data-backdrop="static">
+                                    <span class="glyphicon glyphicon-log-in"></span> 
+                                    #{msg.register}
+                                </a>
+                            </h:panelGroup>
+                            <!-- Modal -->
+                            <div class="modal fade" id="register" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h2 class="modal-title">#{msg.register}</h2>
+                                        </div>
+                                        <div class="modal-body modal-register">
+                                            <h:form class="form-horizontal registration-form-input">
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label email-label">#{msg.first}</h:outputLabel>
+
+                                                    <div>
+                                                        <h:inputText class="registration-input " id="register-first" value ="#{registrationBean.user.firstName}"
+                                                                     required="true" requiredMessage="First Name is required"> 
+                                                            <f:ajax event="blur"  render="firstNameeErrorMessage" />
+                                                        </h:inputText>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info" id= "firstNameeErrorMessage" errorClass="error" for="register-first"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label">#{msg.last}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input" id="register-last" value ="#{registrationBean.user.lastName}"
+                                                                     required="true" requiredMessage="Last Name is required">
+                                                            <f:ajax event="blur"  render="lastNameeErrorMessage" />
+                                                        </h:inputText>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info"  id = "lastNameeErrorMessage" errorClass="error" for="register-last"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label">#{msg.email}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input" id="register-email" required="true" 
+                                                                     value="#{registrationBean.user.email}"
+                                                                     requiredMessage="Email is required" 
+                                                                     validator="#{registrationBean.validateEmail}">
+                                                            <f:ajax event="blur"  render="emailErrorMessage" />
+                                                        </h:inputText>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info" id= "emailErrorMessage" errorClass="error" for="register-email"/>  
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label">#{msg.password}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputSecret class="registration-input" id="register-password"
+                                                                       required="true" requiredMessage="Password is required"
+                                                                       validator="#{registrationBean.validatePassword}">
+                                                            <f:ajax event="blur"  render="passwordMessage" /> 
+                                                        </h:inputSecret>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info" errorClass="error" for="register-password" id="passwordMessage"/> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label">#{msg.confirm}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputSecret class="registration-input" id="register-confirmPassword"
+                                                                       required="true" requiredMessage="Confirm Password is required" 
+                                                                       validator="#{registrationBean.validatePasswordConfirmation}">
+                                                            <f:ajax event="blur"  render="passwordConfirmationMessage"/> 
+                                                        </h:inputSecret>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info" errorClass="error" id="passwordConfirmationMessage" for="register-confirmPassword"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label email-label">#{msg.companyName}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input" value ="#{registrationBean.user.companyName}"/> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label" >#{msg.addressOne}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input"  id="register-address" value ="#{registrationBean.user.address1}"
+                                                                     required="true" requiredMessage="Address #1 is required">
+                                                            <f:ajax event="blur"  render="AddressErrorMessage" /> 
+                                                        </h:inputText>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info" id="AddressErrorMessage" errorClass="error" for="register-address"/> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label email-label">#{msg.addressTwo}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input" value ="#{registrationBean.user.address2}"/> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label">#{msg.city}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input"  id="register-city" value ="#{registrationBean.user.city}"
+                                                                     required="true" requiredMessage="City is required">
+                                                            <f:ajax event="blur"  render="CityErrorMessage" /> 
+                                                        </h:inputText>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info" id="CityErrorMessage" errorClass="error" for="register-city"/> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label email-label" >#{msg.province}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input" id="register-province" value ="#{registrationBean.user.province}"
+                                                                     required="true" requiredMessage="Province is required"> 
+                                                            <f:ajax event="blur"  render="ProvinceErrorMessage" /> 
+                                                        </h:inputText>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info" id="ProvinceErrorMessage" errorClass="error" for="register-province"/> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label" >#{msg.country}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input" id="register-country" value ="#{registrationBean.user.country}"
+                                                                     required="true" requiredMessage="Country is required">
+                                                            <f:ajax event="blur"  render="CountryErrorMessage" /> 
+                                                        </h:inputText>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info"  id="CountryErrorMessage" errorClass="error" for="register-country"/> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label" >#{msg.postal}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input" id="register-postal" value ="#{registrationBean.user.postalCode}"
+                                                                     required="true" requiredMessage="Postal Code is required" validatorMessage="Postal Code is not valid" >
+                                                            <f:validateRegex pattern="[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]" />
+                                                            <f:ajax event="blur"  render="PostalCodeErrorMessage" /> 
+                                                        </h:inputText>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info" id= "PostalCodeErrorMessage" errorClass="error" for="register-postal"/> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label" >#{msg.cell}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input"  id="register-number" value ="#{registrationBean.user.cellPhone}"
+                                                                     required="true" requiredMessage="Phone Number is required">
+                                                            <f:ajax event="blur"  render="phoneErrorMessage" /> 
+                                                        </h:inputText>
+                                                    </div>
+                                                    <div>
+                                                        <h:message infoClass="info" id="phoneErrorMessage" errorClass="error" for="register-number"/> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label">#{msg.homePhone}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input" value ="#{registrationBean.user.homePhone}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">        
+                                                    <h:commandButton  id="submit-button" class="btn btn-default registration-button" value="#{msg.signUp}" action="#{registrationBean.register}">
+                                                        <f:ajax render="@form" execute="@form"/>
+                                                    </h:commandButton>
+                                                </div>
+                                            </h:form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="registration-left">
+
+                            <h:panelGroup rendered="#{not empty request.remoteUser}">
+                                <h:form>
+                                    <h:commandLink   action="#{authenticationBean.logout}" id="logoutID" >
+                                        <span class="glyphicon glyphicon-log-out"></span> 
+                                        #{msg.logout}
+                                    </h:commandLink>
+                                </h:form>
+                            </h:panelGroup>
+                        </li>
+                        <li class="registration-left">                       
+                            <h:panelGroup rendered="#{empty request.remoteUser}">
+
+                                <a type="text" href="#" data-toggle="modal" data-target="#login">
+                                    <h:panelGroup rendered="#{JustRegistered}">
+                                        Now you can Log in! &#x27A1;
+                                    </h:panelGroup>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    #{msg.login}
+                                </a>
+                            </h:panelGroup>
+                        </li>
+                        <li class="registration-left">
+                            <h:panelGroup rendered="#{not empty request.remoteUser}">
+                                <h:panelGroup rendered="#{request.isUserInRole('manager')}">
+                                    <h:form>
+                                        <h:selectOneMenu onchange="submit()" value="#{redirectbean.location}" styleClass="login-drop-down" valueChangeListener="#{redirectbean.valueChangeMethod}">
+                                            <f:selectItem class="glyphicon glyphicon-user welcome" itemLabel=" #{msg.hello}#{request.remoteUser}"/>
+                                            <f:selectItem itemValue="downloads" itemLabel="#{msg.downloads}" />
+                                            <f:selectItem itemValue="adsmanagement" itemLabel="#{msg.adsmanagement}" />
+                                            <f:selectItem itemValue="pollsmanagement" itemLabel="#{msg.pollsmanagement}"/>
+                                            <f:selectItem itemValue="newsmanagement" itemLabel="#{msg.newsmanagement}"/>      
+                                        </h:selectOneMenu>
+                                    </h:form>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{!request.isUserInRole('manager')}">
+                                    <h:form>
+                                        <h:selectOneMenu onchange="submit()" value="#{redirectbean.location}" styleClass="login-drop-down" valueChangeListener="#{redirectbean.valueChangeMethod}">
+                                            <f:selectItem class="glyphicon glyphicon-user welcome" itemLabel=" #{msg.hello}#{request.remoteUser}"/>
+                                            <f:selectItem itemValue="downloads" itemLabel="#{msg.downloads}" />      
+                                        </h:selectOneMenu>
+                                    </h:form>
+                                </h:panelGroup>
+                            </h:panelGroup>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="login" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h2 class="modal-title">#{msg.login}</h2>
+                                        </div>
+                                        <div class="modal-body modal-signin">
+                                            <h:form class="form-horizontal registration-form-input">
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label email-label">#{msg.emailAddress}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputText class="registration-input" id="login-username" a:placeholder="Email Address" required="true" requiredMessage="Email is required"
+                                                                     value="#{authenticationBean.email}"/> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel class="registration-input control-label pass-label">#{msg.passwordNormal}</h:outputLabel>
+                                                    <div>
+                                                        <h:inputSecret class="registration-input"  id="login-password" required="true" requiredMessage="Password is required" 
+                                                                       a:placeholder="Password" value="#{authenticationBean.password}" />
+                                                    </div>
+                                                    <div>
+                                                        <h:messages  id= "loginErrorMessage" style = "color:red;margin:8px;" /> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">        
+
+                                                    <h:commandButton id="submit-button" class="btn btn-default registration-button" value="#{msg.signIn}" action="#{authenticationBean.login}">
+                                                        <f:ajax render="@form" execute="login-username login-password"/>
+                                                    </h:commandButton>
+                                                </div>
+
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="registration-right">
+                            <h:link outcome="cart">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> 
+                                #{msg.cart}
+                            </h:link>
+                        </li>
+                        
+                        <li class="registration-right">
+                            <li class="nav-element"><h:link outcome="genres">#{msg.genre}</h:link></li>
+                        </li>
+                        
+                        
+                        <li id="language-setting">
+                            <h:form>
+                                <h:commandLink action="#{internationalizationBean.localeChanged()}">
+                                    <span class="glyphicon glyphicon-globe"></span> 
+                                    #{msg.language}
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </ui:composition>
+    </h:body>
+</html>

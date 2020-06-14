@@ -1,0 +1,9 @@
+.sales-table{
+    width:100%;
+    display:block;
+}
+
+.sales-button{
+    width: 20%;
+    float:right;
+}

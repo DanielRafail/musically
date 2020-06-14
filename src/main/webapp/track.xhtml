@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>Musically - song selected here</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/admin-management.css"/>
+            <h:outputStylesheet name="css/tracks.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+        </h:head>
+        <h:body>
+            <f:metadata>
+                <f:viewParam name ="trackID" value="#{trackBean.trackID}"/>
+                <f:viewAction action="#{trackBean.setUpTrack()}"/>
+                <f:viewAction action="#{reviewApprovalBean.setUpReviewsForTrack}"/>
+            </f:metadata>
+            <ui:insert name = "head" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+            <div class="container">
+                <div id="item-info-container">
+                    <div id="image-container">
+                        <div class="image">
+                            <h:graphicImage id="item-image" class="img-responsive" value="#{trackBean.trackToDisplay.album.coverFilepath}" alt="Logo of company"/>
+                            <h:panelGroup rendered="#{request.isUserInRole('manager')}" >
+                                <div class="input-group add-group-input-group change-image">
+                                    <h:form>
+                                        <h:inputFile id="file-choser" class='file-choser'/>
+                                        <h:outputLabel for="file-choser">
+                                            <span class="download-ad glyphicon glyphicon-open"></span>
+                                            <span class="file-name">#{msg.upload}</span>
+                                        </h:outputLabel>
+                                    </h:form>
+                                </div>
+                            </h:panelGroup>
+                        </div>
+                        <h:form class="read-only-rating"> 
+                            <p:rating readonly="true" styleClass="stars"/>
+                        </h:form>
+                        <div class="purchase-container">
+                            <h:form>
+                                <h:commandButton class="purchase button btn btn-default" action="#{orderBean.addTrackToCart()}" value="#{msg.addToCart}">
+                                    <f:param name="track_id" value="#{trackBean.trackToDisplay.id}" />
+                                </h:commandButton>
+                            </h:form>
+                        </div>
+                        <div class="purchase-container">
+                            <h:button class="button add-button btn btn-default" value="MANAGER: Edit Item" outcome="track_edit">
+                                <f:param name="trackID" value="#{trackBean.trackToDisplay.id}"/>
+                            </h:button>
+                        </div>
+                    </div>
+                    <div id="item-info">
+                        <h3 class="trackInformation">#{msg.title}</h3>
+                        <div class="information-editable">
+                            <h:outputText value = "#{trackBean.trackToDisplay.title}" class="information-editable-children"/>
+                        </div>
+                        <h3 class="trackInformation">#{msg.artists}</h3>
+                        <div class="information-editable">
+                            <h:outputText value = "#{trackBean.trackToDisplay.album.artistCollectionCSV}" class="information-editable-children"/>
+                        </div>                   
+                        <h3 class="trackInformation">#{msg.writer}</h3>
+                        <div class="information-editable">
+                            <h:outputText value = "#{trackBean.trackToDisplay.songwriter}" class="information-editable-children"/>
+                        </div>                  
+                        <h3 class="trackInformation">#{msg.length}</h3>
+                        <div class="information-editable">
+                            <h:outputText value = "#{trackBean.trackToDisplay.playLength}" class="information-editable-children"/>
+                        </div>                  
+                        <h3 class="trackInformation">#{msg.album}</h3>
+                        <div class="information-editable">
+                            <h:outputText value = "#{trackBean.trackToDisplay.album.title}" class="information-editable-children"/>
+                        </div>        
+                        <h3 class="trackInformation">#{msg.price}</h3>
+                        <div class="information-editable">
+                            <h:outputText value = "#{msg.onSale} $#{trackBean.trackToDisplay.salePrice}" rendered="#{trackBean.trackToDisplay.isOnSale()}" class="information-editable-children"/>
+                            <h:outputText value = "$#{trackBean.trackToDisplay.costPrice}" rendered="#{!trackBean.trackToDisplay.isOnSale()}" class="information-editable-children"/>
+                        </div>   
+                    </div>
+                </div>
+                <div id="item-recommendations">
+                    <h:outputText value = "#{msg.recommended}" class="h2 red"/>
+                    <div id="recommended" class="carousel slide" data-interval="false">
+                        <div class="carousel-inner">
+                            <ui:repeat var="recommendedForSong" value="#{recommendedBean.getSimilarAlbums(trackBean.trackToDisplay.album.title)}">
+                                <div class="item">
+                                    <h:link outcome="#{recommendedBean.goToAlbums(recommendedForSong.id)}"> 
+                                        <h:graphicImage class="img-responsive item-image-recommendation" value="#{recommendedForSong.coverFilepath}" alt="Image of album"/>                    
+                                        <span class="white carousel-text">#{recommendedForSong.title}</span>
+                                    </h:link>             
+                                </div>
+                            </ui:repeat>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#recommended" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#recommended" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div id="review">
+                    <h:outputText class="review-title" value = "#{msg.leaveReview}" />
+                    <h:form>
+                        <p:rating cancel="false" styleClass="stars"/>
+                    </h:form>
+                    <h:form>
+                        <div id="review-comment">
+                            <h:inputTextarea class="review-text" cols="30" rows="10"/>
+                        </div>
+                        <h:button class="button submit-review btn btn-default" value="#{msg.submit}"></h:button>
+                    </h:form>
+                </div>
+
+                <div id="all-reviews">
+                    <ui:repeat var="review" value="#{reviewApprovalBean.reviewList}" varStatus="status">
+                        <div class="single-review">
+                            <h:form>
+                                <h:outputText value="#{review.userId.email}" class="review-title"/>
+                                <p:rating readonly="true" styleClass="stars" value="#{review.rating}"/>
+                                <h:inputTextarea class="reviews-strangers" cols="50" rows="3" readonly="true" value="#{review.review}"/>
+                            </h:form>
+                        </div>
+                    </ui:repeat>
+                </div>
+
+            </div>
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert> 
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <h:outputScript name="javascript/purchasable-item.js"/>
+            <h:outputScript name="javascript/ads.js"/>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+            <h:outputScript name="javascript/carousel.js"/>
+        </h:body>
+    </f:view>
+</html>

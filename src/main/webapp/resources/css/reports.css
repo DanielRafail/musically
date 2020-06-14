@@ -1,0 +1,36 @@
+.report-date-label, .report-date-input{
+   width:100%; 
+   margin: 5px;
+}
+
+.report-button{
+    display:inline-block;
+    padding: 6px 12px;
+    width: 100%;
+    text-align: center;
+    margin: 7px;
+}
+
+.focused-item{
+    background-color: #951A32;
+    outline: none;
+}
+
+.button:hover, .button:focus, .button:active, .button:active:hover{
+    outline: none;
+}
+
+.report-results{
+    display: inline-block;
+    width: 60%;
+    margin: 20px;
+}
+
+@media (max-width: 1300px){
+    .nav-container {
+        width: 40%;
+    }
+    .report-results{
+        width: 80%;
+    }
+}

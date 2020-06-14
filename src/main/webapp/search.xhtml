@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>#{msg.musicallysearch}</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/selection.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+        </h:head>
+        <h:body>
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert>
+
+
+            <div class="container-fluid">
+                <h:panelGroup>
+                    <h:form id="filterForm" class="search-form">
+                        <h:outputLabel value="#{msg.filters}" class="filter-label"/>
+                        <div class="filter-option">
+                            <h:selectBooleanCheckbox value="#{searchBean.checkboxAlbums}" />
+                            <h:outputLabel value="#{msg.albums}" class="filter-label"/>
+                        </div>
+                        <div class="filter-option">
+                            <h:selectBooleanCheckbox value="#{searchBean.checkboxTracks}" />
+                            <h:outputLabel value="#{msg.tracks}" class="filter-label"/>
+                        </div>
+                        <div class="filter-option">
+                            <h:selectBooleanCheckbox value="#{searchBean.checkboxArtists}" />
+                            <h:outputLabel value="#{msg.artists}" class="filter-label"/>
+                        </div>
+                        <div class="filter-option">
+                            <h:selectBooleanCheckbox value="#{searchBean.checkboxGenres}" />
+                            <h:outputLabel value="#{msg.genres}" class="filter-label"/>
+                        </div>
+                        <h:outputLabel value="#{msg.after}" class="search-date-output"/>
+                        <h:inputText value="#{searchBean.afterDate}"></h:inputText>
+                        <h:outputLabel value="#{msg.before}" class="search-date-output"/>
+                        <h:inputText value="#{searchBean.beforeDate}"></h:inputText>
+                        <h:commandButton class="button btn btn-default search-button" action="#{searchBean.search()}" value="#{msg.submit}"></h:commandButton>
+                    </h:form>
+                </h:panelGroup>
+                <h:panelGroup  rendered="#{searchBean.searchedAlbums.size() + searchBean.searchedArtists.size() + searchBean.searchedGenres.size() + searchBean.searchedTracks.size() == 0}">
+                    <div class ="no-result">
+                        <h:outputText class="no-result-text" value = "#{msg.noResult}" />
+                    </div>
+                </h:panelGroup>
+                <div class="selection-container search-selection-container">
+                    <ui:repeat var="album" value="#{searchBean.searchedAlbums}">
+                        <div class="selection-package">
+                            <h:form>
+                                <h:link outcome="album?albumID=#{album.id}">
+                                    <h:graphicImage class="img-responsive selection-item-image" value="#{album.coverFilepath}" alt="Image of item"/> 
+                                </h:link>
+                                <h:button outcome="album?albumID=#{album.id}" class="selection-item-button button btn btn-default" value="#{album.title}"></h:button>
+                            </h:form>
+                        </div>
+                    </ui:repeat>
+                    <ui:repeat var="track" value="#{searchBean.searchedTracks}">
+                        <div class="selection-package">
+                            <h:form>
+                                <h:link outcome="track?trackID=#{track.id}">
+                                    <h:graphicImage class="img-responsive selection-item-image" value="#{track.album.coverFilepath}" alt="Image of item"/> 
+                                </h:link>
+                                <h:button outcome="track?trackID=#{track.id}" class="selection-item-button button btn btn-default" value="#{track.title}"></h:button>
+                            </h:form>
+                        </div>
+                    </ui:repeat>
+                    <ui:repeat var="artist" value="#{searchBean.searchedArtists}">
+                        <div class="selection-package">
+                            <h:form>
+                                <h:commandLink action="#{searchBean.searchArtist(artist.id)}">
+                                    <h:graphicImage class="img-responsive selection-item-image" value="#{artist.albumCollection.toArray()[artist.albumCollection.size()-1].coverFilepath}" alt="Image of item"/> 
+                                </h:commandLink>
+                                <h:commandButton action="#{searchBean.searchArtist(artist.id)}" class="selection-item-button button btn btn-default" value="#{artist.artistName}" >
+                                </h:commandButton>
+                            </h:form>
+                        </div>
+                    </ui:repeat>
+                    <ui:repeat var="gr" value="#{searchBean.searchedGenres}">
+                        <div class="selection-package">
+                            <h:form>
+                                <h:link outcome="albums.xhtml?genre=#{gr.genre}">
+                                    <h:graphicImage class="img-responsive selection-item-image" value="#{gr.coverFilepath}" alt="Image of item"/> 
+                                </h:link>
+                                <h:button outcome="albums.xhtml?genre=#{gr.genre}" class="selection-item-button button btn btn-default" value="#{gr.genre}"></h:button>
+                            </h:form>
+                        </div>
+                    </ui:repeat>
+                    <div class="see-more-container">
+                        <h:commandLink value="#{msg.seemore}" class="see-more red"/>
+                    </div>
+                </div>
+            </div>
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/selection.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+        </h:body>
+    </f:view>
+</html>

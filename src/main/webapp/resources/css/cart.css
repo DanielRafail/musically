@@ -1,0 +1,33 @@
+a{
+    decoration:none;
+    color:inherit;
+}
+
+.purchase{
+    width: 130px;
+    font-size: 18px;
+}
+
+#cart-price{
+    display: block;
+    background-color: #3d3c49;
+    width:fit-content;
+    min-width: 200px;
+    border: 1px solid black;
+}
+
+#cart-price p{
+    margin: 10px;
+    color: white;
+}
+#cart-price-container{
+    width: 100%;
+}
+
+#confirm-checkout{
+    float:right;
+}
+
+#confirm-checkout-container{
+    width: 100%;
+}

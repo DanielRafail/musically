@@ -1,0 +1,17 @@
+.submitted-review{
+    margin: 20px;
+}
+
+.header{
+    margin: 20px;
+    font-size: 70px;
+}
+
+.header-container{
+    margin:0 auto;
+    width:100%;
+    text-align: center;
+}
+#review{
+    margin-top:20px;
+}

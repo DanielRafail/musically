@@ -1,0 +1,25 @@
+.red{
+    font-size: 24px;
+}
+
+.client-edit-form{
+    width:100%;
+    margin:0 auto;
+}
+
+.client-input{
+    width:80%;
+}
+
+.client-edit-button{
+    width: 150px;
+    float:right;
+    font-size: 24px;
+    background-color: #dc274a;
+    margin-right: 20%;
+    margin-top: 20px;
+}
+
+label{
+    font-size:24px;
+}

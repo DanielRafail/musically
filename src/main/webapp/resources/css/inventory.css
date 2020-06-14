@@ -1,0 +1,98 @@
+.inventory-button{
+    margin-left: 8%;
+    margin-top: 5%;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 762px) {
+    .inventory-button{
+        font-size: 2.5vw;
+        width: 25%;
+    }
+}
+
+#header-inventory{
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+/* https://stackoverflow.com/questions/11679567/using-css-for-fade-in-effect-on-page-load */
+
+
+.inventory-first-click, .inventory-button-clicked{
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 2s; /* Firefox < 16 */
+    -ms-animation: fadein 2s; /* Internet Explorer */
+    -o-animation: fadein 2s; /* Opera < 12.1 */
+    animation: fadein 2s;
+}
+
+.inventory-button-clicked{
+    transform: scale(0.6, 0.6);
+}
+
+
+.inventory-button-selected{
+    background-color: #951A32;
+    cursor: default !important;
+}
+
+.inventory-button:hover, .inventory-button:focus, .inventory-button:active, .inventory-button:active:hover{
+    outline: none;
+}
+
+#body{
+    width:100%;
+}
+
+.notSelected{
+    display:none;
+}
+
+.inventory-table-remove{
+    display:none;
+}
+
+#remove-container{
+    text-align: center;
+    margin:0 auto;
+}
+
+.inventory-find-label{
+    font-size:20px;   
+}
+
+.add-button{
+    width: 40%;
+    font-size: 20px;
+    margin: 20px;
+    height: 40px;
+    padding: 7px;
+    margin-left:30%;
+}
+
+#add-container{
+    background-color:#282730;
+    width:70%;
+    margin: 40px auto;
+}
+
+@media (max-width: 768px){
+    .inventory-button{
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 761px) {
+    .inventory-button{
+        font-size: 30px;
+    }
+}
+
+.radio{
+    display:block !important;
+}
+
+.album-selected{
+    display:none;
+}

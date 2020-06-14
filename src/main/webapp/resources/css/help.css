@@ -1,0 +1,13 @@
+.help-container{
+    margin: auto 40px;
+}
+
+.help-container-text{
+    margin-left: 60px;
+    margin-right: 5px;
+    color:white;
+}
+
+.answer{
+    display:inline;
+}

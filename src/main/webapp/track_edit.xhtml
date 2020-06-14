@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>#{msg.musicallyTrackEdit} #{trackBean.trackToDisplay.title}</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/table.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+            <h:outputStylesheet name="css/inventory.css"/>
+        </h:head>
+        <h:body>
+            <f:metadata>
+                <f:viewAction action="#{trackBean.setUpTrack()}"/>
+            </f:metadata>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+            <div class="container inventory-container">
+                <div id="add-container">
+                    <h:form class="navbar-form">
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.titleInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="trackTitle" value="#{trackBean.trackToDisplay.title}" class="form-control add-input"/>
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.writerInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="trackSongWriters" value="#{trackBean.trackToDisplay.songwriter}" class="form-control add-input"/>
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.lengthInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="trackPlayLength" value="#{trackBean.trackToDisplay.playLength}" class="form-control add-input"/>
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.trackNumInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="trackAlbumSelection" value="#{trackBean.trackToDisplay.albumSelection}" class="form-control add-input"/>
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.costPriceInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="trackCostPrice" value="#{trackBean.trackToDisplay.costPrice}" class="form-control add-input">
+                                    <f:convertNumber type="currency" currencySymbol="$" />
+                                </h:inputText>
+                                <h:message for="trackCostPrice" styleClass="errorMessage" showDetail="true" />
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.listPriceInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="trackListPrice" value="#{trackBean.trackToDisplay.listPrice}" class="form-control add-input">
+                                    <f:convertNumber type="currency" currencySymbol="$" />
+                                </h:inputText>
+                                <h:message for="trackListPrice" styleClass="errorMessage" showDetail="true" />
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.sellableBooleanInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:selectBooleanCheckbox id="trackSellableSingle" value="#{trackBean.trackToDisplay.sellableAsSingle}" class="form-control add-input"/>
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.albumInput}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:inputText id="trackAlbum" 
+                                             value="#{trackBean.albumName}" 
+                                             class="form-control add-input album-selected-input"
+                                             required="true" requiredMessage="Album is required"
+                                             validator="#{trackBean.validateAlbumName}">
+                                    <f:ajax event="blur" render="albumMessage"/>
+                                </h:inputText>
+                            </div>
+                            <div>
+                                <h:message infoClass="info" errorClass="error" id="albumMessage" for="trackAlbum"/>
+                            </div>
+                        </div>
+                        <div class="add-group">
+                            <h:outputLabel value="#{msg.remove}" class="add-output"/>
+                            <div class="input-group add-group-input-group">
+                                <h:selectBooleanCheckbox id="trackRemoved" value="#{trackBean.trackToDisplay.removed}" class="form-control add-input"/>
+                            </div>
+                        </div>
+
+                        <h:commandButton class="add-button button btn btn-default" value="Add" action="#{trackBean.updateTrack}"/>
+                    </h:form>
+                </div>
+            </div>
+        </h:body>
+    </f:view>
+</html>

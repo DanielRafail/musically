@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>#{msg.musicallyOrders}</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/orders.css"/>
+            <h:outputStylesheet name="css/table.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+            #{allOrdersBean.getAllOrders()}
+        </h:head>
+        <h:body>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+            <div class="container-fluid">
+                <nav class="nav-container date-nav-container">
+                    <h:form>
+                        <h:outputText value="#{msg.start}" class="date-label"/>
+                        <h:inputText value="#{allOrdersBean.afterDate}" class="date-input" a:placeholder="#{allOrdersBean.afterDate}"/>
+
+                        <h:outputText value="#{msg.end}" class="date-label"/>
+                        <h:inputText value="#{allOrdersBean.beforeDate}" class="date-input" a:placeholder="#{allOrdersBean.beforeDate}"/>
+
+                        <h:commandButton action="#{allOrdersBean.getAllOrders()}" class="button btn btn-default orders-date-button" value="#{msg.searchitem}"/>
+                    </h:form>
+                </nav>
+                <div class="orders-list" >
+                    <ul class="orders-ul parent-list" >
+                        <ui:repeat value="#{allOrdersBean.getOrders()}" var="orderCart">
+                            <h:form>
+                                <li class="orders-li list-element">
+                                    <details>
+                                        <summary>
+                                            <h:outputText value="#{msg.order} ##{orderCart.id}: Net: $#{orderCart.subTotal.doubleValue()} #{msg.gross}: $#{orderCart.grossValue}" class="element"/>
+                                            <h:commandLink action="#{allOrdersBean.disableOrder(orderCart)}"><span class="glyphicon glyphicon-remove-circle"></span></h:commandLink>
+                                        </summary>
+                                        <h:outputText value="#{msg.customer}: #{orderCart.userId.email}" class="element"/>
+                                        <ul class="orders-ul sub-list">
+                                            <ui:repeat value="#{orderCart.orderItemCollection}" var="orderItem">
+                                                <li class="orders-li list-element list-sub-element">
+                                                    <h:outputText value="#{orderItem.toString()} " class="element"/>
+                                                    <h:commandLink action="#{allOrdersBean.disableOrderItem(orderItem)}" ><span class="glyphicon glyphicon-remove-circle"></span></h:commandLink>
+                                                </li>
+                                            </ui:repeat>
+                                        </ul>
+                                    </details>
+                                </li>
+                            </h:form>
+                        </ui:repeat>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Use footer composition -->
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+        </h:body>
+    </f:view>
+</html>

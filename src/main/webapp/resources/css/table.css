@@ -1,0 +1,70 @@
+.cart-row-one, .inventory-row-one {
+    width: 60%;
+}
+
+.cart-row-two, .inventory-row-two {
+    width: 30%;
+}
+
+.cart-type, .inventory-row-type, .reports-row-one, .reports-row-two, .reports-row-three, .reports-row-four{
+    width: 25%;
+}
+
+.sales-row-one{
+    width:20%;
+}
+
+.sales-row-two{
+    width:20%;
+}
+
+.sales-row-type{
+    width:20%;
+}
+
+.sales-row-name{
+    width:40%;
+}
+
+.client-name, .client-total, .download-row-one, .download-row-two
+.news-row-one, .news-row-two {
+    width:40%;
+}
+
+.client-edit, .download-row-three, .ads-row-two, .news-row-three, .poll-row-two{
+    width: 20%;
+}
+
+.ads-row-one, .poll-row-one{
+    width:80%;
+}
+
+
+
+#cart-table, #inventory-table, #sales-table-results, .clients-table-results,
+.reports-results, .download-table, .ads-table, .news-table, .poll-table{
+    width: 100%;
+    margin: 40px 0px 20px 0px;
+    border-collapse: collapse;
+}
+
+th, .cart-row-one, .inventory-row-one, .cart-row-two, .inventory-row-two,
+.inventory-row-remove, .cart-remove, .inventory-row-type, .cart-type,
+.sales-row-name, .sales-row-type, .sales-row-one, .sales-row-two, .client-name
+, .client-total, .client-edit, .reports-row-one, .reports-row-two, .reports-row-three, .reports-row-four,
+.download-row-one, .download-row-two, .download-row-three, .news-row-one, .news-row-two, .ads-row-one, .ads-row-two,
+.news-row-three, .poll-row-one, .poll-row-two{
+    padding: 7px;
+    border: 1px solid black;
+    text-align: center;
+    background-color: #282730;
+}
+
+td{
+    color: whitesmoke;
+}
+
+a{
+    decoration:none;
+    color:inherit;
+}

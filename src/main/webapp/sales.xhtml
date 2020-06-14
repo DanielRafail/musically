@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>#{msg.musicallySales}</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/table.css"/>
+            <h:outputStylesheet name="css/sales.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+        </h:head>
+        <h:body>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+
+            <div class="container sales-container">
+                <h:form class="navbar-form">
+                    <h:outputLabel value="#{msg.find}" class="sales-find-label"/>
+                    <div class="input-group">
+                        <h:inputText class="form-control" value="#{setSaleBean.toSearch}" a:placeholder="#{msg.findField}"/>
+                        <div class="input-group-btn">
+                            <h:commandLink class="btn btn-default" action="#{setSaleBean.getAlbumsAndTracksFromSearch}" type="submit"><i class="glyphicon glyphicon-search"></i></h:commandLink>
+                        </div>
+                    </div>
+                </h:form>
+                <h:form class="sales-table">
+                    <h:outputText rendered="#{setSaleBean.isSearchComplete}" value="#{msg.albumsFound} #{setSaleBean.albumList.size()}"/>
+                    <h:outputText rendered="#{setSaleBean.isUpdateComplete}" value="#{msg.changesSaved}"/>
+                    <h:outputText rendered="#{setSaleBean.isErrorUpdatingAlbum}" value="#{msg.salePriceError}"/>
+                    <h:dataTable value = "#{setSaleBean.albumList}" var = "albumSalesChange" class="table-responsive sales-table-results"  columnClasses="sales-row-type, sales-row-name, sales-row-one,sales-row-two">
+                        <h:column>    				
+                            <f:facet name = "header">#{msg.type}</f:facet>  
+                            Album
+                        </h:column>
+                        <h:column>    				
+                            <f:facet name = "header">#{msg.title}</f:facet> 
+                            #{albumSalesChange.title}
+                        </h:column>
+                        <h:column>    				
+                            <f:facet name = "header">#{msg.releaseDate}</f:facet> 
+                            <h:outputText value="#{albumSalesChange.releaseDate}">
+                                <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name = "header">#{msg.price}</f:facet>
+                            #{albumSalesChange.listPrice}
+                        </h:column>
+                        <h:column>
+                            <f:facet name = "header">#{msg.sale}</f:facet>
+                            <h:inputText value="#{albumSalesChange.salePrice}" class="sale-row" required="true">
+                                <f:validateLongRange minimum="0" maximum="100" />
+                            </h:inputText>
+                        </h:column>
+                    </h:dataTable>
+                    <h:outputText rendered="#{setSaleBean.isSearchComplete}" value="#{msg.tracksFound} #{setSaleBean.trackList.size()}"/>
+                    <h:outputText rendered="#{setSaleBean.isTrackUpdateComplete}" value="#{msg.changesSaved}"/>
+                    <h:outputText rendered="#{setSaleBean.isErrorUpdatingTrack}" value="#{msg.salePriceError}"/>
+                    <h:dataTable value="#{setSaleBean.trackList}" var="trackSalesChange" class="table-responsive sales-table-results" id="sales-table-results" columnClasses="sales-row-type, sales-row-name, sales-row-one,sales-row-two">
+                        <h:column>
+                            <f:facet name ="header">#{msg.type}</f:facet>
+                            Track
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg.title}</f:facet>
+                            #{trackSalesChange.title}
+                        </h:column>
+                        <h:column>    				
+                            <f:facet name = "header">#{msg.album}</f:facet> 
+                            #{trackSalesChange.album.title}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg.price}</f:facet>
+                            #{trackSalesChange.listPrice}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg.sale}</f:facet>
+                            <h:inputText value="#{trackSalesChange.salePrice}" class="sale-row" required="true">
+                                <f:validateLongRange minimum="0" maximum="100"/>
+                            </h:inputText>
+                        </h:column>
+                    </h:dataTable>
+                    <h:commandButton class="sales-button button btn btn-default" value="#{msg.submit}" action="#{setSaleBean.updateSales}"></h:commandButton>
+                </h:form>
+            </div>
+
+            <!-- Use footer composition -->
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+        </h:body>
+    </f:view>
+</html>

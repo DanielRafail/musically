@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <!-- Head with title and spreadsheet -->
+    <f:view locale="#{internationalizationBean.locale}">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>Musically - Reviews</title>
+            <h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+            <h:outputStylesheet name="css/common.css"/>
+            <h:outputStylesheet name="css/table.css"/>
+            <h:outputStylesheet name="css/reviews.css"/>
+            <h:outputStylesheet name="css/Footer-with-button-logo.css"/>
+        </h:head>
+        <h:body>
+            <f:metadata>
+                <f:viewAction action="#{reviewApprovalBean.getAllReviews}"/>
+            </f:metadata>
+            <!-- Use header composition -->
+            <ui:insert name = "header" >
+                <ui:include src = "head.xhtml" />
+            </ui:insert> 
+
+            <div class="header-container">
+                <h:outputText class="red h1 header" value="#{msg.reviews}"/>
+            </div>
+            <ui:repeat var="review" value="#{reviewApprovalBean.reviewList}" varStatus="status">
+                <div id="review">
+                    <div id="review-stars">
+                        <h:outputText class="item-title" value = "#{empty review.albumId ? review.trackId.title : review.albumId.title}" />
+                        <h:outputText class="item-title" value="#{review.approved ? msg.reviewApproved : msg.reviewNotApproved}"/>
+                        <h:form class="read-only-rating"> 
+                            <p:rating readonly="true" styleClass="stars" value="#{review.rating}"/>
+                            <h:outputText value="#{msg.reviewedBy} #{review.userId.email}"/>
+                        </h:form>
+                    </div>
+                    <h:form>
+                        <div id="review-comment">
+                            <h:inputTextarea class="review-text" cols="30" rows="10" readonly="true" value="#{review.review}"/>
+                        </div>                       
+                        <h:commandButton class="button submitted-review btn btn-default" value="#{msg.approve}" action="#{reviewApprovalBean.approve}">
+                            <f:param name="index" value="#{status.index}"/>
+                        </h:commandButton>
+                        <h:commandButton class="button submitted-review btn btn-default" value="#{msg.notapprove}" action="#{reviewApprovalBean.deny}">
+                            <f:param name="index" value="#{status.index}"/>
+                        </h:commandButton>
+                    </h:form>
+                </div>
+            </ui:repeat>
+
+            <!-- Use footer composition -->
+            <ui:insert name = "footer" >
+                <ui:include src = "footer.xhtml" />
+            </ui:insert>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js"/>
+            <h:outputScript name="javascript/registration.js"/>
+        </h:body>
+    </f:view>
+</html>

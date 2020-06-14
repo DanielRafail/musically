@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:body>
+        <nav class="navbar navbar-inverse" id="nav-container">
+            <div class="container-fluid" id="nav-div">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#user">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <h:link outcome="index" class="navbar-brand" id="nav-burger-title">Explore</h:link>
+                </div>
+                <div class="collapse navbar-collapse" id="user">
+                    <ul class="nav navbar-nav" id="nav-ul">
+                        <li class="nav-element"><h:link outcome="selection">#{msg.artists}</h:link></li>
+                        <li class="nav-element"><h:link outcome="genres">#{msg.genre}</h:link></li>
+                        <li class="nav-element"><h:link outcome="selection">#{msg.recent}</h:link></li>
+                        <li class="nav-element"><h:link outcome="selection">#{msg.popular}</h:link></li>
+                        <li class="nav-element"><h:link outcome="selection">#{msg.recentA}</h:link></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <h:panelGroup rendered="#{request.isUserInRole('manager')}" >
+        <nav class="navbar navbar-inverse" id="nav-container-manager" >
+            <h:panelGroup class="container-fluid" id="nav-div-manager"  >
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#manager">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <h:link outcome="index" class="navbar-brand" id="nav-burger-title-manager">Manager Menu</h:link>
+                </div>
+                <h:panelGroup class="collapse navbar-collapse" id="manager">
+                    <ul class="nav navbar-nav" id="nav-ul-manager">
+                        <li class="nav-element"><h:link outcome="inventory">#{msg.inventory}</h:link></li>
+                        <li class="nav-element"><h:link outcome="sales">#{msg.sales}</h:link></li>
+                        <li class="nav-element"><h:link outcome="clients">#{msg.clients}</h:link></li>
+                        <li class="nav-element"><h:link outcome="orders">#{msg.orders}</h:link></li>
+                        <li class="nav-element"><h:link outcome="reviews">#{msg.reviews}</h:link></li>
+                        <li class="nav-element"><h:link outcome="reports">#{msg.reports}</h:link></li>
+                    </ul>
+               </h:panelGroup>
+            </h:panelGroup>
+        </nav>
+        </h:panelGroup>
+    </h:body>
+</html>

@@ -1,0 +1,27 @@
+jdbcRealmTeamD
+
+
+JAAS Context: jdbcRealm
+
+jdbc/myDatasourceTeamD
+
+ User Table: users
+
+ User Name Column: email
+
+ Password Column: password
+
+ Group Table: user_types
+
+ Group Table User Name Column:   user_email
+
+ Group Name Column: type
+
+ Password Encryption Algorithm: SHA-256
+
+ Digest Algorithm:  SHA-256
+
+ Encoding:  Base64
+
+cst.receive@gmail.com
+collegedawson
